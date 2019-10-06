@@ -8,8 +8,6 @@ export default class AuthStore{
     this.root = root;
   }
   @action login =(data) =>{
-    console.log('in auth mobx');
-    console.log(data);
     this.profile = data;
     this.isLoggedin = true;
   }

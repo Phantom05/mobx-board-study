@@ -3,7 +3,7 @@ let apiAddress =`http://localhost:5000`;
 
 
 
-function postLogin(config){
+function localRegister(config){
   if(config.url === undefined) return console.warn('url is not defined');
   config.url = apiAddress + config.url;
   config.method = 'post';
@@ -12,5 +12,5 @@ function postLogin(config){
 
 
 export  {
-  postLogin,
+  localRegister,
 }

@@ -20,11 +20,9 @@ const Styled = {
   `
 }
 class Header extends Component {
-
   handleLogout = () => {
     this.props.logout();
   }
-
   render() {
     const { isLoggedin } = this.props;
     return (

@@ -3,12 +3,9 @@ import styled from '@emotion/styled'
 import PlainTemplate from 'components/Template/PlainTemplate'
 import Header from 'components/Base/Header';
 import axios from 'axios';
-import { postLogin } from 'lib/Api';
+import { localRegister } from 'lib/Api';
 import { Redirect } from'react-router-dom';
-
-
 import { inject, observer } from 'mobx-react';
-
 const Styled = {
   Signin: styled.div`
   .form{
@@ -40,31 +37,32 @@ class Signin extends Component {
     username: '',
     password: ''
   }
-
   componentDidMount() {
     console.log('did');
   }
-
   handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({
       [name]: value
     })
   }
-
   handleSubmit = (e) => {
     e.preventDefault();
+    const {username,password} = this.state;
     const loginConfig = {
       url: '/auth/login',
       data: {
-        username: 'test',
-        password: 'test'
+        username: username,
+        password: password
       }
     }
-    postLogin(loginConfig).then(async (response) => {
+    localRegister(loginConfig).then(async (response) => {
       let data = response.data;
-      await this.props.login(data);
-
+      if(data.result ===1){
+        await this.props.login(data);
+      }else{
+        alert('Please, check Account')
+      }
     })
   }
 
