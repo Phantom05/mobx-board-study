@@ -55,7 +55,7 @@ class Signin extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const loginConfig = {
-      url: '/login',
+      url: '/auth/login',
       data: {
         username: 'test',
         password: 'test'
