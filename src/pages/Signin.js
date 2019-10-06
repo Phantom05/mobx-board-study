@@ -2,8 +2,15 @@ import React, { Component } from 'react';
 import styled from '@emotion/styled'
 import PlainTemplate from 'components/Template/PlainTemplate'
 import Header from 'components/Base/Header';
-const Styled ={
-  Signin : styled.div`
+import axios from 'axios';
+import { postLogin } from 'lib/Api';
+import { Redirect } from'react-router-dom';
+
+
+import { inject, observer } from 'mobx-react';
+
+const Styled = {
+  Signin: styled.div`
   .form{
     margin-top:30px;
   }
@@ -29,26 +36,78 @@ const Styled ={
 `
 }
 class Signin extends Component {
+  state = {
+    username: '',
+    password: ''
+  }
+
+  componentDidMount() {
+    console.log('did');
+  }
+
+  handleChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value
+    })
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const loginConfig = {
+      url: '/login',
+      data: {
+        username: 'test',
+        password: 'test'
+      }
+    }
+    postLogin(loginConfig).then(async (response) => {
+      let data = response.data;
+      await this.props.login(data);
+
+    })
+  }
+
   render() {
+    const { value } = this.state
+    const {isLoggedin} = this.props;
     return (
       <Styled.Signin>
         <PlainTemplate header={<Header />}>
-        <h1>Sign in</h1>
-        <form className="form">
-          <div>
-            <input type="text" placeholder="Username" className="input"/>
-          </div>
-          <div>
-            <input type="password" placeholder="Password" className="input"/>
-          </div>
-          <div className="button_box">
-            <button type="submit" className="button submit">Login</button>
-          </div>
-        </form>
+          <h1>Sign in</h1>
+          {isLoggedin && <Redirect to="/" />}
+          <form className="form" onSubmit={this.handleSubmit}>
+            <div>
+              <input
+                type="text"
+                placeholder="Username"
+                className="input"
+                onChange={this.handleChange}
+                value={value}
+                name="username"
+              />
+            </div>
+            <div>
+              <input
+                type="password"
+                placeholder="Password"
+                className="input"
+                value={value}
+                name="password"
+              />
+            </div>
+            <div className="button_box">
+              <button type="submit" className="button submit">Login</button>
+            </div>
+          </form>
         </PlainTemplate>
       </Styled.Signin>
     );
   }
 }
 
-export default Signin;
+export default inject(({ auth }) => ({
+  login: auth.login,
+  isLoggedin: auth.isLoggedin,
+  profile:auth.profile
+}))(observer(Signin));

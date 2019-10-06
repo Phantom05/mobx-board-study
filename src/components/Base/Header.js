@@ -13,32 +13,56 @@ const Styled = {
     .nav__list{
       float:left;
       margin-right:10px;
+      & > a{
+        text-decoration:none;
+      }
     }
   `
 }
 class Header extends Component {
+
+  handleLogout = () => {
+    this.props.logout();
+  }
+
   render() {
-    const { isLogin } = this.props;
+    const { isLoggedin } = this.props;
     return (
       <Styled.Header>
         <div className="nav__list">
           <Link to="/">Home</Link>
         </div>
-        <div className="nav__list">
-          <Link to="/signup">Signup</Link>
-        </div>
-        <div className="nav__list">
-          <Link to="/signin">Login</Link>
-        </div>
-        <div className="nav__list">
-          {isLogin && 'logout'}
-          {isLogin && <Link to="/mypage">Mypage</Link>}
-        </div>
+
+        {!isLoggedin &&
+          <div className="nav__list">
+            <Link to="/signup">Signup</Link>
+          </div>
+        }
+
+        {isLoggedin &&
+          <div className="nav__list">
+            <Link to="/mypage">Mypage</Link>
+          </div>
+        }
+
+        {!isLoggedin &&
+          <div className="nav__list">
+            <Link to="/signin">Login</Link>
+          </div>
+        }
+
+        {isLoggedin &&
+          <div className="nav__list">
+            <span onClick={this.handleLogout}>Logout</span>
+          </div>
+        }
+
       </Styled.Header>
     );
   }
 }
 
 export default inject(({ auth }) => ({
-  isLogin: auth.isLogin
+  isLoggedin: auth.isLoggedin,
+  logout: auth.logout
 }))(Header);
