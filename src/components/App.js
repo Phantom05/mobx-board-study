@@ -5,6 +5,8 @@ import Home from 'pages/Home';
 import Signin from 'pages/Signin'
 import SignUp from 'pages/Signup'
 import Mypage from 'pages/Mypage';
+import Board from 'pages/Board';
+import 'antd/dist/antd.css';
 // import { Helmet } from 'react-helmet';
 
 const App = () => (
@@ -14,6 +16,7 @@ const App = () => (
     </Helmet> */}
     <Switch>
       <Route exact path="/" component={Home} />
+      <Route exact path="/board" component={Board} />
       <Route exact path="/signin" component={Signin} />
       <Route exact path="/signup" component={SignUp} />
       <Route exact path="/mypage" component={Mypage} />

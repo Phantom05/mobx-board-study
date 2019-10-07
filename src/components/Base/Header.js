@@ -30,6 +30,10 @@ class Header extends Component {
         <div className="nav__list">
           <Link to="/">Home</Link>
         </div>
+        <div className="nav__list">
+          <Link to="/board">Board</Link>
+        </div>
+
 
         {!isLoggedin &&
           <div className="nav__list">

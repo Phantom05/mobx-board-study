@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PlainTemplate from 'components/Template/PlainTemplate'
 import Header from 'components/Base/Header';
-import styled from '@emotion/styled';
+// import styled from '@emotion/styled';
 class Mypage extends Component {
   render() {
     return (

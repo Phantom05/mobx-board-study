@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from '@emotion/styled'
 import PlainTemplate from 'components/Template/PlainTemplate'
 import Header from 'components/Base/Header';
-import axios from 'axios';
+// import axios from 'axios';
 import { localRegister } from 'lib/Api';
 import { Redirect } from'react-router-dom';
 import { inject, observer } from 'mobx-react';

@@ -22,7 +22,7 @@ class Home extends Component {
         <PlainTemplate header={<Header />}>
           <Styled.Home>
             <h1>Home</h1>
-            <img src="https://taegon.kim/wp-content/uploads/2018/05/image-5.png"  className="main__image"/>
+            <img src="https://taegon.kim/wp-content/uploads/2018/05/image-5.png" alt="test" className="main__image"/>
           </Styled.Home>
         </PlainTemplate>
       </div>
