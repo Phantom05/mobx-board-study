@@ -37,11 +37,6 @@ const Stlyed = {
 class List extends Component {
   render() {
     const { header, content,header:{links} } = this.props;
-    // console.log(links);
-    // let width = Math.floor(100 / (header.list.length ));
-    // console.log(content);
-    
-
     return (
       <Stlyed.List>
         <div className="header_row">
@@ -59,7 +54,6 @@ class List extends Component {
             <div className="content__row" key={contentInfo.id}>
               {header.list.map((headerInfo) => {
                 const isCheckbox = headerInfo === 'checkbox';
-                // console.log(headerInfo,'headerInfo');
                 let value = !isCheckbox  &&  _.filter(contentInfo,(val,key)=> key === headerInfo);
                 if(links.includes(headerInfo)){
                   value = <Link to="/">{value}</Link>
