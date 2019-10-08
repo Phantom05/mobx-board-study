@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 // import Signin from 'pages/Signin'
 
 
+
 class Core extends Component {
   render() {
     return (

@@ -50,23 +50,29 @@ class Example extends Admin {
     ];
   }
 }
-
-
 class Test extends Component {
-
   render() {
     let headerInfo ={
       name:"Contect",
       links:['name'],
       list : ['checkbox','name','address','date'],
       checkbox:true
+    };
+    let content=[];
+    for(let i = 0 ; i < 10; i ++){
+      content.push({
+        id:i,
+        name:`phantom${i}`,
+        address:"monster2jy@gmail.com",
+        date:'2019-10-08'
+      })
     }
     return (
       <Styled.CRUD>
         <Example/>
         <br/><br/><br/><br/><br/><br/><br/>
-        <hr/>
-        <List header={headerInfo}/>
+        {/* <hr/> */}
+        <List header={headerInfo} content={content}/>
       </Styled.CRUD>
     );
   }

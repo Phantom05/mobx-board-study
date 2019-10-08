@@ -1,42 +1,81 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import Item from './Item';
-import { Row, Col,Button } from 'antd';
-
-
 import styled from '@emotion/styled';
+import _ from 'lodash';
+import {Link} from 'react-router-dom';
 
 const Stlyed = {
   List: styled.div`
-  .header{
+  border:1px solid #ececec;
+  border-radius:5px;
+  .header_row{
+    border-bottom:2px solid #ececec;
     &:after{
       content:'';
       display:block;
       clear: both;
     }
   }
-  .header_box{
+  .list__box{
+    &.header{
     font-weight:bold;
+    }
     float:left;
+    margin-right:5px;
+  }
+  .content__row{
+    border-bottom:1px solid #ececec;
+    &:after{
+      content:'';
+      display:block;
+      clear: both;
+    }
   }
   `
 }
 class List extends Component {
   render() {
-    const { header } = this.props;
-    let width = Math.floor(100 / (header.list.length ));
+    const { header, content,header:{links} } = this.props;
+    // console.log(links);
+    // let width = Math.floor(100 / (header.list.length ));
+    // console.log(content);
+    
+
     return (
       <Stlyed.List>
-        <div className="header">
-          {header.list.map((headerList) => (
-            <div style={{width:`${width}%`}} key={headerList} className="header_box">
-              <Item  info={headerList == 'checkbox' ? <input type="checkbox" /> :headerList} />
-            </div>)
+        <div className="header_row">
+          {header.list.map((headerInfo) => {
+            const isCheckbox = headerInfo === 'checkbox';
+            return (
+              <div key={headerInfo} className="list__box header">
+                <Item info={isCheckbox ? <input type="checkbox" /> : headerInfo} />
+              </div>)
+          }
           )}
+        </div>
+        <div className="content">
+          {content.map(contentInfo => (
+            <div className="content__row" key={contentInfo.id}>
+              {header.list.map((headerInfo) => {
+                const isCheckbox = headerInfo === 'checkbox';
+                // console.log(headerInfo,'headerInfo');
+                let value = !isCheckbox  &&  _.filter(contentInfo,(val,key)=> key === headerInfo);
+                if(links.includes(headerInfo)){
+                  value = <Link to="/">{value}</Link>
+                }
+                return (
+                  <div key={headerInfo} className="list__box content">
+                    <Item info={isCheckbox ? <input type="checkbox" /> :value} />
+                  </div>)
+              }
+              )}
+            </div>
+          ))}
         </div>
 
 
-        List
+
       </Stlyed.List>
     );
   }
@@ -52,4 +91,5 @@ List.defaultProps = {
   header: {
     list: []
   },
+  content: []
 }

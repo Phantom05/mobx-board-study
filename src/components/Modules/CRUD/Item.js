@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 const Styled ={
   Item:styled.div`
-  padding:15px;
+  /* padding:15px; */
   `
 }
 class Item extends Component {
