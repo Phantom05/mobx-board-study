@@ -8,11 +8,14 @@ import Admin from "react-crud-admin";
 import "react-crud-admin/css"; //optional css import
 
 
-import List from './List';
+import CrudList from './CrudList';
 
 const Styled ={
   CRUD : styled.div`
   padding:25px;
+  .headerItem,.listItem{
+    padding:5px;
+  }
   `
 }
 
@@ -50,41 +53,48 @@ class Example extends Admin {
     ];
   }
 }
-class Test extends Component {
+class Container extends Component {
   render() {
     let headerInfo ={
       name:"Contect",
       links:['name'],
       list : ['checkbox','name','address','date'],
+      col:[2,8,8,6],
       checkbox:true
     };
-    let content=[];
-    for(let i = 0 ; i < 10; i ++){
-      content.push({
-        id:i,
-        name:`phantom${i}`,
-        address:"monster2jy@gmail.com",
-        date:'2019-10-08'
-      })
-    }
+    let content = Array(10).fill(undefined).map((list,i)=> ({
+      id:i,
+      name:[`phantom${i}`,`/board/detail/${i}`],
+      address:"monster2jy@gmail.com",
+      date:'2019-10-08'
+    }));
+
     return (
       <Styled.CRUD>
-        <Example/>
-        <br/><br/><br/><br/><br/><br/><br/>
-        {/* <hr/> */}
-        <List header={headerInfo} content={content}/>
+        {/* <Example/>
+        <br/><br/><br/><br/><br/><br/><br/> */}
+
+        <CrudList 
+          header={headerInfo}  // 상단 제목 th부분
+          content={content}  //  하단 리스트 td 부분
+          headerContainerClassName ={'headerContainer'}
+          headerItemClassName ={'headerItem'}
+          listContainerClassName ={'listContainer'}
+          listItemClassName ={'listItem'}
+          contentClassName={'contentClass'}
+        />
         <PageNavigation 
-            previousLabel={'prev'}
-            nextLabel={'next'}
-            pageCount={250} // 총 페이지 수
-            pageRangeDisplayed={4}// 표시되는 페이지 범위
-            marginPagesDisplayed={0} // break 다음에 표시될 범위
-            breakLabel={''} // break 표시 view
-            onPageChange={this.handlePageChange}
-            containerClassName={'pagination'}
-            subContainerClassName={'page pagination'}
-            activeClassName={'active'}
-          />
+          previousLabel={'<'}
+          nextLabel={'>'}
+          pageCount={250} // 총 페이지 수
+          pageRangeDisplayed={4}// 표시되는 페이지 범위
+          marginPagesDisplayed={0} // break 다음에 표시될 범위
+          breakLabel={''} // break 표시 view
+          onPageChange={this.handlePageChange}
+          containerClassName={'pagination'}
+          subContainerClassName={'page pagination'}
+          activeClassName={'active'}
+        />
 
       </Styled.CRUD>
     );
@@ -93,4 +103,4 @@ class Test extends Component {
 
 export default inject(({board})=>({
 
-}))(observer(Test));
+}))(observer(Container));

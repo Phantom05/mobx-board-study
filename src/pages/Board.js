@@ -4,7 +4,7 @@ import Header from 'components/Base/Header';
 import PlainTemplate from 'components/Template/PlainTemplate';
 import styled from '@emotion/styled';
 // import PageNavigation from 'components/Part/PageNavigation';
-import Test from 'components/Modules/CRUD/Test';
+import CRUD from 'components/Modules/CRUD';
 
 const Styled ={
   Board:styled.div`
@@ -35,20 +35,8 @@ class Board extends Component {
       <PlainTemplate header={<Header />}>
         <Styled.Board>
           <h1>Board</h1>
-          <Test />
+          <CRUD />
 
-          {/* <PageNavigation 
-            previousLabel={'prev'}
-            nextLabel={'next'}
-            pageCount={250} // 총 페이지 수
-            pageRangeDisplayed={4}// 표시되는 페이지 범위
-            marginPagesDisplayed={0} // break 다음에 표시될 범위
-            breakLabel={''} // break 표시 view
-            onPageChange={this.handlePageChange}
-            containerClassName={'pagination'}
-            subContainerClassName={'page pagination'}
-            activeClassName={'active'}
-          /> */}
 
         </Styled.Board>
 
